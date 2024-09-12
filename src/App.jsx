@@ -1,6 +1,5 @@
 import { useState, lazy, Suspense } from "react";
-import { createRoot } from "react-dom/client";
-import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AdoptedPetContext from "./AdoptPetContext";
 
@@ -25,7 +24,7 @@ const App = () => {
         background: "url(http://pets-images.dev-apis.com/pets/wallpaperA.jpg)",
       }}
     >
-      <BrowserRouter>
+      
         <QueryClientProvider client={queryClient}>
           <Suspense
             fallback={
@@ -50,11 +49,8 @@ const App = () => {
             </AdoptedPetContext.Provider>
           </Suspense>
         </QueryClientProvider>
-      </BrowserRouter>
     </div>
   );
 };
 
-const container = document.getElementById("root");
-const root = createRoot(container);
-root.render(<App />);
+export default App;
