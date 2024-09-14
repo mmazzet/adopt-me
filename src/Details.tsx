@@ -5,15 +5,21 @@ import AdoptedPetContext from "./AdoptPetContext";
 import ErrorBoundary from "./ErrorBoundary";
 import Carousel from "./Carousel";
 import fetchPet from "./fetchPet";
+import { PetAPIResponse } from "./APIResponsesTypes";
 
 const Modal = lazy(() => import("./Modal"));
 
 const Details = () => {
+  const { id } = useParams();
+
+  if (!id) {
+    throw new Error("Why did you not give me an id. I wanted an id. I have no id.");
+  }
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
   const [_, setAdoptedPet] = useContext(AdoptedPetContext);
-  const { id } = useParams();
+  
   const results = useQuery(["details", id], fetchPet);
 
   if (results.isLoading) {
