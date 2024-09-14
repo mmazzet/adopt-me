@@ -17,10 +17,11 @@ const Details = () => {
   }
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
+  const results = useQuery<PetAPIResponse>(["details", id], fetchPet);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setAdoptedPet] = useContext(AdoptedPetContext);
   
-  const results = useQuery(["details", id], fetchPet);
+  
 
   if (results.isLoading) {
     return (
@@ -29,7 +30,10 @@ const Details = () => {
       </div>
     );
   }
-  const pet = results.data.pets[0];
+  const pet = results?.data?.pets[0];
+  if (!pet){
+    throw new Error("no pet lol");
+  }
 
   return (
     <div className="details w-[1100px] mx-auto p-4 mb-6 rounded-lg bg-[#faeff0] shadow-[0_0_12px_rgba(170,170,170,0.5),_0_0_12px_rgba(255,255,255,0.5)]">
@@ -74,10 +78,10 @@ const Details = () => {
   );
 };
 
-function DetailsErrorBoundary(props) {
+function DetailsErrorBoundary() {
   return (
     <ErrorBoundary>
-      <Details {...props} />
+      <Details />
     </ErrorBoundary>
   );
 }
