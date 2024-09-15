@@ -5,7 +5,7 @@ import AdoptedPetContext from "./AdoptPetContext";
 import ErrorBoundary from "./ErrorBoundary";
 import Carousel from "./Carousel";
 import fetchPet from "./fetchPet";
-import { PetAPIResponse } from "./APIResponsesTypes";
+
 
 const Modal = lazy(() => import("./Modal"));
 
@@ -17,7 +17,7 @@ const Details = () => {
   }
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  const results = useQuery<PetAPIResponse>(["details", id], fetchPet);
+  const results = useQuery(["details", id], fetchPet);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setAdoptedPet] = useContext(AdoptedPetContext);
   
@@ -37,7 +37,7 @@ const Details = () => {
 
   return (
     <div className="details w-[1100px] mx-auto p-4 mb-6 rounded-lg bg-[#faeff0] shadow-[0_0_12px_rgba(170,170,170,0.5),_0_0_12px_rgba(255,255,255,0.5)]">
-      <Carousel images={pet.images} />
+      <Carousel images ={pet.images} />
       <div >
       <h1 className="text-center text-[#333] text-6xl my-1">{pet.name}</h1>
       <h2 className="text-center my-1 mb-5">
